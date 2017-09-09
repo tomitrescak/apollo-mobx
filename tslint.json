@@ -1,0 +1,21 @@
+{
+  "extends": [
+      "tslint:latest"
+  ],
+  "rules": {
+    "quotemark": [true, "single", "jsx-double"],
+    "trailing-comma": false,
+    "only-arrow-functions": false,
+    "no-unused-expression": [
+        false
+    ],
+    "no-unused-variable": [
+        true
+    ],
+    "interface-name": false,
+    "member-access": [
+        false
+    ],
+    "max-classes-per-file": 2
+  }
+}

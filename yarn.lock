@@ -191,13 +191,13 @@ apollo-module-date@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/apollo-module-date/-/apollo-module-date-1.0.5.tgz#41ab4794c1ec3f82a467afe2ebed9a69d002dc13"
 
-apollo-utilities@0.2.0-alpha.6:
-  version "0.2.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-alpha.6.tgz#5a3211f8d7eec90de814d362281466e841993f0a"
-
 apollo-utilities@0.1.1-1:
   version "0.1.1-1"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.1.1-1.tgz#a637c2a5b49e06f20dd9adf7c55ec1ff69a97592"
+
+apollo-utilities@0.2.0-alpha.6:
+  version "0.2.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-alpha.6.tgz#5a3211f8d7eec90de814d362281466e841993f0a"
 
 append-transform@^0.4.0:
   version "0.4.0"
@@ -2508,7 +2508,7 @@ sinon-chai@^2.13.0:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/sinon-chai/-/sinon-chai-2.13.0.tgz#b9a42e801c20234bfc2f43b29e6f4f61b60990c4"
 
-sinon@^3.2.0:
+sinon@^3.2.0, sinon@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/sinon/-/sinon-3.2.1.tgz#d8adabd900730fd497788a027049c64b08be91c2"
   dependencies:

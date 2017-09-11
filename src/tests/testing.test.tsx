@@ -49,7 +49,11 @@ describe('Testing', function() {
       `
     });
 
-    result.data.other.should.deep.equal({ date: 1264942800000, text: 'Resolved', __typename: 'Other' });
+    result.data.other.should.deep.equal({
+      date: new Date(2010, 1, 1).getTime(),
+      text: 'Resolved',
+      __typename: 'Other'
+    });
   });
 
   it('compose: composes several functions', function() {

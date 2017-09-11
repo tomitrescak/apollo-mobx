@@ -3,7 +3,9 @@ machine:
   node:
     version: 7.1.0
 
+dependencies:
+  override:
+    - yarn
 test:
-  post:
-    - npm run build
-    - npm run coveralls
+  override:
+    - yarn run coveralls

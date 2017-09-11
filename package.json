@@ -21,6 +21,7 @@
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
     "apollo-cache-inmemory": "^0.1.0-0",
+    "apollo-module-date": "^1.0.5",
     "apollo-client": "next",
     "coveralls": "^2.13.1",
     "enzyme": "^2.9.1",
@@ -39,9 +40,6 @@
     "tslint-react": "^3.2.0",
     "typescript": "^2.5.2",
     "wafl": "^0.2.6"
-  },
-  "dependencies": {
-    "apollo-module-date": "^1.0.5"
   },
   "nyc": {
     "include": [

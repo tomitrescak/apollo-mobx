@@ -1,10 +1,10 @@
 # Introduction
 
-[![Coverage Status](https://coveralls.io/repos/github/tomitrescak/apollo-mobx/badge.svg?branch=master)](https://coveralls.io/github/tomitrescak/apollo-mobx?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/tomitrescak/apollo-mobx/badge.svg?branch=master)](https://coveralls.io/github/tomitrescak/apollo-mobx?branch=master) [![CircleCI](https://circleci.com/gh/tomitrescak/apollo-mobx.svg?style=svg)](https://circleci.com/gh/tomitrescak/apollo-mobx)
 
-TDD oriented React containers for Apollo.
+React containers for Apollo using MobX state management.
 
-- 100% Mobx
+- **100% Mobx**
 - Redux Free
 - Maintaining *react-apollo* API
 - **EXTRA** features for Unit and Integration testing

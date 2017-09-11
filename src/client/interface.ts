@@ -57,6 +57,8 @@ export interface OperationOption<TProps, TResult> {
   withRef?: boolean;
   shouldResubscribe?: (props: TProps, nextProps: TProps) => boolean;
   alias?: string;
+  waitForData?: boolean;
+  loadingComponent?: () => JSX.Element;
 }
 
 export type CompositeComponent<P> = React.ComponentClass<P> | React.StatelessComponent<P>;

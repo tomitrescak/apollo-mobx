@@ -114,13 +114,9 @@ describe('container', function() {
       .should.be.rejectedWith('GraphQL error: Failed');
 
     catchCallback.should.have.been.called;
-    graphqlClient.mobxQueryStore.activeQueries.length.should.equal(0);
   });
 
   it('will wait for mutations and re-render accordingly', async function() {
-    graphqlClient.mobxQueryStore.activeQueries.pop();
-    graphqlClient.mobxQueryStore.activeQueries.length.should.equal(0);
-
     const component = (
       <ApolloDecorator>
         <HelloWorld />
@@ -141,7 +137,5 @@ describe('container', function() {
       .find('#detail')
       .text()
       .should.equal('New Text');
-
-    graphqlClient.mobxQueryStore.activeQueries.length.should.equal(0);
   });
 });

@@ -51,6 +51,7 @@ describe('container', function() {
       </div>
     );
   });
+  HelloWorld.displayName = 'HelloWorld';
 
   const query = gql`
     query hello($greeting: String) {
@@ -61,7 +62,12 @@ describe('container', function() {
   const Composed = graphql(query, {
     options: (ownProps: any) => {
       return { variables: { greeting: ownProps.greeting } };
-    }
+    },
+    props: ({data, ownProps}) => ({
+      data1: data,
+      ownProps1: ownProps,
+      custom: 'MyCustom'
+    })
   })(HelloWorld);
 
   const context = {};
@@ -72,7 +78,6 @@ describe('container', function() {
   });
 
   const Parent = observer(() => {
-    console.log('Will draw ...' + state.greeting);
     return (
       <div>
         {state.greeting}
@@ -95,11 +100,11 @@ describe('container', function() {
 
     const greetings = await graphqlClient.query({
       finalCallback,
+      thenCallback,
       query,
       variables: {
         greeting: 'Tomas'
       },
-      thenCallback
     });
 
     greetings.data.should.deep.equal({ helloWorld: 'Hello: Tomas' });
@@ -137,12 +142,16 @@ describe('container', function() {
       .find('#content')
       .text()
       .should.equal('Hello: Tomas');
+
+    // check custom params
+    const hw = wrapper.find('HelloWorld');
+    hw.prop('custom').should.equal('MyCustom');
+    hw.prop('data1').should.equal(hw.prop('data'));
+    hw.prop('ownProps1').should.exist;
+
   });
 
   it('will wait for queries and re-render accordingly', async function() {
-    graphqlClient.mobxQueryStore.activeQueries.pop();
-    graphqlClient.mobxQueryStore.activeQueries.length.should.equal(0);
-
     const component = (
       <ApolloDecorator>
         <Parent />
@@ -184,7 +193,5 @@ describe('container', function() {
       .find('#content')
       .text()
       .should.equal('Reset Message');
-
-    graphqlClient.mobxQueryStore.activeQueries.length.should.equal(1);
   });
 });

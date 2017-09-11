@@ -3,7 +3,7 @@ import { Subscription } from 'apollo-client/lib/src/util/Observable';
 import { DocumentNode } from 'graphql';
 import { action, observable } from 'mobx';
 import * as React from 'react';
-import { ApolloMobxClient } from './client';
+import { ApolloClient } from './client';
 import { shallowCompare } from './utils';
 
 export class Observer<T> {
@@ -14,7 +14,7 @@ export class Observer<T> {
 
   subscription: Subscription;
   query: ObservableQuery<any>;
-  client: ApolloMobxClient<T>;
+  client: ApolloClient<T>;
   variables: any;
 
   start(client: any, query: DocumentNode, { variables, ...options }: any) {

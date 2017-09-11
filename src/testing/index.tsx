@@ -1,4 +1,6 @@
 import InMemoryCache from 'apollo-cache-inmemory';
+import ApolloClientBase from 'apollo-client';
+import { ApolloLink } from 'apollo-link-core/lib';
 import { mount, ReactWrapper } from 'enzyme';
 import { GraphQLScalarType } from 'graphql';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
@@ -6,9 +8,10 @@ import { Kind } from 'graphql/language';
 import { autorun } from 'mobx';
 import { Provider as MobxProvider } from 'mobx-react';
 import * as React from 'react';
-import { ApolloMobxClient } from '../client/client';
+import { ApolloClient } from '../client/client';
 import { ObserverStore } from '../client/observer_store';
 import MockLink from './mock_link';
+import { SpyLink } from './spy_link';
 
 export interface ApolloProps<T> {
   resolvers?: any;
@@ -50,12 +53,15 @@ export function initialiseApolloMocks<T>({
 
   const apolloCache = new InMemoryCache(global.__APOLLO_STATE_);
 
-  const graphqlClient = new ApolloMobxClient({
+  const graphqlClient: ApolloClient<typeof context> = new ApolloClient({
     cache: apolloCache,
     context,
-    link: new MockLink({ schema }) as any,
+    link: ApolloLink.from([
+      new SpyLink(() => graphqlClient),
+      new MockLink({ schema }),
+    ]),
+    loadingComponent: 3
   });
-  graphqlClient.cache = apolloCache;
   return graphqlClient;
 }
 
@@ -84,24 +90,17 @@ export function initialiseApolloDecorator<T>({
 
 export async function mountContainer(component: JSX.Element) {
   const wrapper = mount(component);
-  const client = wrapper.find('Provider').prop('client') as ApolloMobxClient<any>;
+  const client = wrapper.find('Provider').prop('client') as ApolloClient<any>;
 
   await waitForQueries(client);
 
   return wrapper;
 }
 
-export async function waitForQueries<T>(client: ApolloMobxClient<T>): Promise<any> {
-  const mobxQueryStore: ObserverStore<T> = client.mobxQueryStore;
-  if (mobxQueryStore.activeQueries.length && mobxQueryStore.activeQueries.every((q) => !q.loading)) {
-    return true;
+export async function waitForQueries(client: ApolloClientBase): Promise<any> {
+  const spyLink: SpyLink = (client as ApolloClient<any>).spyLink;
+  if (!spyLink) {
+    throw new Error('You need to add SpyLink to your links!');
   }
-  return new Promise((resolve, reject) => {
-    autorun(() => {
-      const version = mobxQueryStore.version;
-      if (mobxQueryStore.activeQueries.every((q) => !q.loading)) {
-        resolve(version);
-      }
-    });
-  });
+  return await spyLink.wait();
 }

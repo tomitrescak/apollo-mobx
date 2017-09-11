@@ -1,9 +1,10 @@
 import { Cache } from 'apollo-cache-core';
-import ApolloClient, { ApolloError, MutationOptions, WatchQueryOptions } from 'apollo-client';
+import ApolloClientBase, { ApolloError, MutationOptions, WatchQueryOptions } from 'apollo-client';
 import { NetworkStatus } from 'apollo-client/lib/src/core/networkStatus';
 import { ApolloLink } from 'apollo-link-core';
 import { DocumentNode } from 'graphql';
 import * as React from 'react';
+import { SpyLink } from '../testing/spy_link';
 import { ObserverStore } from './observer_store';
 
 export interface IQuery<D, V, C> extends WatchQueryOptions {
@@ -30,16 +31,18 @@ export interface Options<T> {
   connectToDevTools?: boolean;
   queryDeduplication?: boolean;
   context?: T;
+  loadingComponent: () => JSX.Element;
 }
 
-export class ApolloMobxClient<C> extends ApolloClient {
-  mobxQueryStore = new ObserverStore<C>();
+export class ApolloClient<C> extends ApolloClientBase {
+  spyLink: SpyLink;
   context: C;
+  loadingComponent?: () => JSX.Element;
 
   constructor(options: Options<C>) {
     super(options);
-
     this.context = options.context;
+    this.loadingComponent = options.loadingComponent;
   }
 
   mutate<V, D>(
@@ -63,15 +66,11 @@ export class ApolloMobxClient<C> extends ApolloClient {
     } = options;
 
     return new Promise((resolve, reject) => {
-      // we will watch for the end of mutation
-      const watchMutation = this.mobxQueryStore.createObservable();
 
       if (!thenCallback && !catchCallback && !finalCallback) {
         super.mutate(options).then((result) => {
-          this.mobxQueryStore.removeObservable(watchMutation);
           resolve(result);
         }).catch((error) => {
-          this.mobxQueryStore.removeObservable(watchMutation);
           reject(error);
         });
         return;
@@ -95,8 +94,6 @@ export class ApolloMobxClient<C> extends ApolloClient {
             finalCallback(this.context);
           }
 
-          this.mobxQueryStore.removeObservable(watchMutation);
-
           resolve(graphQLResult);
         })
         .catch((error: ApolloError) => {
@@ -107,8 +104,6 @@ export class ApolloMobxClient<C> extends ApolloClient {
           if (finalCallback) {
             finalCallback(this.context);
           }
-
-          this.mobxQueryStore.removeObservable(watchMutation);
 
           reject(error);
         });
@@ -131,9 +126,6 @@ export class ApolloMobxClient<C> extends ApolloClient {
     }
 
     return new Promise((resolve, reject) => {
-      // we will watch for the end of mutation
-      const watchMutation = this.mobxQueryStore.createObservable();
-
       super
         .query<D>({
           query,
@@ -150,8 +142,6 @@ export class ApolloMobxClient<C> extends ApolloClient {
             finalCallback(this.context);
           }
 
-          this.mobxQueryStore.removeObservable(watchMutation);
-
           resolve(graphQLResult);
         })
         .catch((error: ApolloError) => {
@@ -162,8 +152,6 @@ export class ApolloMobxClient<C> extends ApolloClient {
           if (finalCallback) {
             finalCallback(this.context);
           }
-
-          this.mobxQueryStore.removeObservable(watchMutation);
 
           reject(error);
         });

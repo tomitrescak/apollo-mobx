@@ -9,7 +9,6 @@ import { autorun } from 'mobx';
 import { Provider as MobxProvider } from 'mobx-react';
 import * as React from 'react';
 import { ApolloClient } from '../client/client';
-import { ObserverStore } from '../client/observer_store';
 import MockLink from './mock_link';
 import { SpyLink } from './spy_link';
 
@@ -59,8 +58,7 @@ export function initialiseApolloMocks<T>({
     link: ApolloLink.from([
       new SpyLink(() => graphqlClient),
       new MockLink({ schema }),
-    ]),
-    loadingComponent: 3
+    ])
   });
   return graphqlClient;
 }

@@ -5,7 +5,6 @@ import { ApolloLink } from 'apollo-link-core';
 import { DocumentNode } from 'graphql';
 import * as React from 'react';
 import { SpyLink } from '../testing/spy_link';
-import { ObserverStore } from './observer_store';
 
 export interface IQuery<D, V, C> extends WatchQueryOptions {
   variables?: V;
@@ -31,7 +30,7 @@ export interface Options<T> {
   connectToDevTools?: boolean;
   queryDeduplication?: boolean;
   context?: T;
-  loadingComponent: () => JSX.Element;
+  loadingComponent?: () => JSX.Element;
 }
 
 export class ApolloClient<C> extends ApolloClientBase {

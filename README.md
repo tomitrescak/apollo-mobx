@@ -1,5 +1,7 @@
 # Introduction
 
+[![Coverage Status](https://coveralls.io/repos/github/tomitrescak/apollo-mobx/badge.svg?branch=master)](https://coveralls.io/github/tomitrescak/apollo-mobx?branch=master)
+
 TDD oriented React containers for Apollo.
 
 - 100% Mobx

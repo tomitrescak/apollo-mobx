@@ -8,7 +8,6 @@ import ApolloClient, {
   SubscribeToMoreOptions,
   UpdateQueryOptions,
 } from 'apollo-client';
-import { DocumentNode } from 'graphql';
 import { action, computed, IObservableArray, observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 

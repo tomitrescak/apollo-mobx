@@ -4,7 +4,7 @@ import { mount, shallow } from 'enzyme';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
-import * as sinon from 'Sinon';
+import * as sinon from 'sinon';
 import { ApolloClient } from '../client/client';
 import { waitForData } from '../client/wait_for_data';
 import { compose, connectProps, gql, graphql } from '../index';

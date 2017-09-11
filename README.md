@@ -225,7 +225,7 @@ import { mount, shallow } from 'enzyme';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
-import * as sinon from 'Sinon';
+import * as sinon from 'sinon';
 
 import { compose, connectProps, graphql, shallowCompare } from 'apollo-mobx';
 import {

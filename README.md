@@ -18,7 +18,13 @@ Following has been shamelessly copied and adjusted from Apollo-React docs.
 It is simple to install React Apollo.
 
 ```bash
-npm install apollo-mobx --save
+npm install apollo-client@next apollo-mobx --save
+```
+
+Next, install you preferred cache handling library and Client links
+
+```bash
+npm install apollo-link-http apollo-cache-inmemory --save
 ```
 
 That’s it! You may now use React Apollo in any of your React environments.

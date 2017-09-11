@@ -4,3 +4,6 @@ index.d.ts
 /testing/
 /client/
 /tests
+coverage/
+.nyc_output/
+.coveralls.yml

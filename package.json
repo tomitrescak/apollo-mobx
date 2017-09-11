@@ -1,10 +1,11 @@
 {
   "name": "apollo-mobx",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "HOC for querying graphql server",
   "main": "index.js",
   "scripts": {
     "test": "TS_NODE_FAST=true mocha --require ./mocha.js --report lcovonly src/**/*.test.tsx --compilers ts:ts-node/register --bail",
+    "coverage": "TS_NODE_FAST=true NODE_ENV=test nyc npm test && nyc report --reporter lcov",
     "coveralls": "NODE_ENV=test nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
@@ -54,9 +55,6 @@
     ],
     "require": [
       "ts-node/register"
-    ],
-    "reporter": [
-      "text-lcov"
     ],
     "all": false
   }

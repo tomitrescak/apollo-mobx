@@ -6,16 +6,16 @@ React containers for Apollo using MobX state management.
 
 - **100% Mobx**
 - Redux Free
-- Maintaining *react-apollo* API
+- Maintaining *[react-apollo](https://github.com/apollographql/react-apollo)* API 
 - **EXTRA** features for Unit and Integration testing
 
-**WARNING** Currently tested only with Apollo Client 2.0 alpha
+**WARNING** Currently tested only with Apollo Client 2.0 alpha. Also, no support for SSR as of yet. PRs welcome.
 
 Following has been shamelessly copied and adjusted from Apollo-React docs.
 
 ## Installation
 
-It is simple to install React Apollo.
+It is simple to install Apollo Mobx.
 
 ```bash
 npm install apollo-client@next apollo-mobx --save
@@ -27,15 +27,15 @@ Next, install you preferred cache handling library and Client links
 npm install apollo-link-http apollo-cache-inmemory --save
 ```
 
-That’s it! You may now use React Apollo in any of your React environments.
+That’s it! You may now use Apollo Mobx in any of your React environments.
 
-For an amazing developer experience you may also install the [Apollo Client Developer tools for Chrome][] which will give you inspectability into your React Apollo data.
+For an amazing developer experience you may also install the [Apollo Client Developer tools for Chrome][] which will give you inspectability into your Apollo Mobx data.
 
 [Apollo Client Developer tools for Chrome]: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
 
 ## Usage
 
-To get started you will first want to create an instance of [`ApolloClient`][] and then you will want to provide that client to your React component tree using the [`<ApolloProvider/>`][] component. Finally, we will show you a basic example of connecting your GraphQL data to your React components with the [`graphql()`][] enhancer function.
+To get started you will first want to create an instance of [`ApolloClient`][] and then you will want to provide that client to your React component tree using the standard MobX [`<Provider/>`][] component. Finally, we will show you a basic example of connecting your GraphQL data to your React components with the [`graphql()`][] enhancer function.
 
 First we want an instance of [`ApolloClient`][]. We can import the class from `react-apollo` and construct it like so:
 

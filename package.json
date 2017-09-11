@@ -4,7 +4,8 @@
   "description": "HOC for querying graphql server",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "TS_NODE_FAST=true mocha --require ./mocha.js --report lcovonly src/**/*.test.tsx --compilers ts:ts-node/register --bail",
+    "coveralls": "NODE_ENV=test nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
     "Apollo",
@@ -21,13 +22,17 @@
     "@types/react-dom": "^15.5.4",
     "apollo-cache-inmemory": "^0.1.0-0",
     "apollo-client": "next",
+    "coveralls": "^2.13.1",
     "enzyme": "^2.9.1",
-    "graphql": "^0.11.3",
+    "graphql": "^0.10.5",
     "graphql-tools": "^1.2.2",
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
+    "mocha": "^3.5.2",
+    "nyc": "^11.2.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "ts-node": "^3.3.0",
     "tslib": "^1.7.1",
     "tslint": "^5.7.0",
     "tslint-config-prettier": "^1.5.0",
@@ -37,5 +42,24 @@
   },
   "dependencies": {
     "apollo-module-date": "^1.0.5"
+  },
+  "nyc": {
+    "include": [
+      "src/*.ts",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/typings"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-lcov"
+    ],
+    "all": false
   }
 }

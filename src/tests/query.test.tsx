@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 import * as sinon from 'Sinon';
-import { compose, connectProps, graphql } from '../index';
+import { compose, connectProps, gql, graphql } from '../index';
 import {
   configure,
   initialiseApolloDecorator,
@@ -21,7 +21,7 @@ class State {
 
 const state = new State();
 
-describe('container', function() {
+describe('Queries', function() {
   const typeDefs = `
   type Query {
     helloWorld(greeting: String): String

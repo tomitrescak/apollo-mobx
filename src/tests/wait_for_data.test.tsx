@@ -7,7 +7,7 @@ import * as React from 'react';
 import * as sinon from 'Sinon';
 import { ApolloClient } from '../client/client';
 import { waitForData } from '../client/wait_for_data';
-import { compose, connectProps, graphql } from '../index';
+import { compose, connectProps, gql, graphql } from '../index';
 import {
   configure,
   initialiseApolloDecorator,
@@ -23,8 +23,10 @@ class State {
 
 const state = new State();
 
-describe('container', function() {
+describe('Wait For Data', function() {
   const typeDefs = `
+  scalar Date
+
   type Query {
     helloWorld(greeting: String): String
   }
@@ -160,7 +162,7 @@ describe('container', function() {
     loadingComponent.should.have.been.called;
   });
 
-  it('can compose with wait for data and wait for data to load', async function() {
+  it('can compose with wait for data and wait for data to load using local loadingComponent', async function() {
     const loadingComponent = sinon.stub().returns(<div id="loading">Loading ...</div>);
 
     const container = graphql(query);
@@ -182,7 +184,7 @@ describe('container', function() {
     loadingComponent.should.have.been.called;
   });
 
-  it('can compose with wait for data and wait for data to load', async function() {
+  it('throws error when data do not exists', async function() {
     const loadingComponent = sinon.stub().returns(<div id="loading">Loading ...</div>);
     graphqlClient.loadingComponent = null;
 

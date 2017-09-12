@@ -74,6 +74,12 @@ describe('Wait For Data', function() {
   it('can specify loading component on query', async function() {
     const loadingComponent = sinon.stub().returns(<div id="loading">Loading ...</div>);
     const Composed = graphql(query, {
+      options: (props) => {
+        return { variables: {
+            greeting: 'Tomi'
+          }
+        };
+      },
       loadingComponent,
       waitForData: true,
     })(HelloWorld);

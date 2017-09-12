@@ -1,14 +1,14 @@
-import { ApolloLink, Operation, FetchResult, Observable } from 'apollo-link-core';
+import { ApolloLink, FetchResult, Observable, Operation } from 'apollo-link-core';
 
-import { print } from 'graphql/language/printer';
 import { graphql, GraphQLSchema } from 'graphql';
+import { print } from 'graphql/language/printer';
 
 export default class MockLink extends ApolloLink {
   schema: GraphQLSchema;
   rootValue: any;
   context: any;
 
-  constructor(params?: { schema: GraphQLSchema; rootValue?: any; context?: any }) {
+  constructor(params?: { schema: any; rootValue?: any; context?: any }) {
     super();
     this.schema = params.schema;
     this.rootValue = params.rootValue;
@@ -21,15 +21,15 @@ export default class MockLink extends ApolloLink {
       query: print(operation.query)
     };
 
-    return new Observable<FetchResult>(observer => {
+    return new Observable<FetchResult>((observer) => {
       graphql(this.schema, request.query, this.rootValue, this.context, request.variables, request.operationName)
-        .then(data => {
+        .then((data) => {
           if (!observer.closed) {
             observer.next(data);
             observer.complete();
           }
         })
-        .catch(error => {
+        .catch((error) => {
           if (!observer.closed) {
             observer.error(error);
           }

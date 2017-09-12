@@ -20,6 +20,8 @@ export class Observer<T> {
   start(client: any, query: DocumentNode, { variables, ...options }: any) {
     if (this.client !== client) {
       this.client = client;
+      this.variables = variables;
+
       this.cleanup();
     } else if (!shallowCompare(this.variables, variables)) {
       this.loading = true;

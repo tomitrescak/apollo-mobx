@@ -7,7 +7,7 @@ import { Cache } from 'apollo-cache-core';
 import ApolloClientBase, { ObservableQuery } from 'apollo-client';
 import { Subscription } from 'apollo-client/lib/src/util/Observable';
 import { ApolloLink } from 'apollo-link-core';
-import { DocumentNode } from 'graphql';
+// import { DocumentNode } from 'graphql';
 import { ApolloClient } from './client';
 import { ChildProps, ComponentDecorator, OperationOption, QueryOpts } from './interface';
 import { Observer } from './observer';
@@ -17,7 +17,7 @@ const uid = 0;
 interface WProps { client: ApolloClient<any>; }
 
 export function graphql<TResult = {}, TProps = {}, TChildProps = ChildProps<TProps, TResult>>(
-  query: DocumentNode,
+  query: any,
   { options, props = null, name = 'data', waitForData, loadingComponent }: OperationOption<TProps, TResult> = {}
 ): ComponentDecorator<TProps, TChildProps> {
   return function(Wrapper) {
@@ -50,7 +50,11 @@ export function graphql<TResult = {}, TProps = {}, TChildProps = ChildProps<TPro
 
         // we may request that we want to render only loading component until data is loaded
         if (receivedData.loading && waitForData) {
-          return loadingComponent ? loadingComponent() : this.props.client.loadingComponent();
+          const loading = loadingComponent ? loadingComponent() : this.props.client.loadingComponent();
+          if (!loading) {
+            throw new Error('Apollo-Mobx: Loading component for "waitForData" is not defined.');
+          }
+          return loading;
         }
 
         return <Wrapper {...newProps} />;

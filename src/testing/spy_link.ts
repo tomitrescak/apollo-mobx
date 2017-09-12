@@ -69,8 +69,10 @@ export class SpyLink extends ApolloLink {
   private getKey(operation: Operation) {
     // XXX we're assuming here that variables will be serialized in the same order.
     // that might not always be true
-    return `${print(operation.query)}|${JSON.stringify(
-      operation.variables,
-    )}|${operation.operationName}`;
+    // return `${print(operation.query)}|${JSON.stringify(
+    //   operation.variables,
+    // )}|${operation.operationName}`;
+
+    return print(operation.query);
   }
 }

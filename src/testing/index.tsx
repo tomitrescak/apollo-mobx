@@ -19,6 +19,7 @@ export interface ApolloProps<T> {
   mutations?: any;
   reducers?: {};
   context?: T;
+  loadingComponent?: (props: any) => JSX.Element;
 }
 
 let globalTypeDefs: string;
@@ -35,7 +36,8 @@ export function initialiseApolloMocks<T>({
   resolvers = {},
   reducers = {},
   typeDefs = globalTypeDefs,
-  context
+  context,
+  loadingComponent
 }: ApolloProps<T>) {
   // add crap around mocks
   const finalMocks = {
@@ -58,7 +60,8 @@ export function initialiseApolloMocks<T>({
     link: ApolloLink.from([
       new SpyLink(() => graphqlClient),
       new MockLink({ schema }),
-    ])
+    ]),
+    loadingComponent
   });
   return graphqlClient;
 }
@@ -69,9 +72,10 @@ export function initialiseApolloDecorator<T>({
   resolvers = {},
   reducers = {},
   typeDefs,
-  context
+  context,
+  loadingComponent
 }: ApolloProps<T>) {
-  const graphqlClient = initialiseApolloMocks({ queries, mutations, resolvers, context, typeDefs });
+  const graphqlClient = initialiseApolloMocks({ queries, mutations, resolvers, context, typeDefs, loadingComponent });
 
   return {
     ApolloDecorator: ({ children }: any) => {

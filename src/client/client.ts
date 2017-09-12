@@ -13,8 +13,7 @@ export interface IQuery<D, V, C> extends WatchQueryOptions {
   finalCallback?: (context: C) => void;
 }
 
-export interface IMutation<C, V, D, T = { [key: string]: any }> extends MutationOptions<T> {
-  query?: DocumentNode;
+export interface IMutation<C, V, D, T = {}> extends MutationOptions<T> {
   variables?: V;
   thenCallback?: (data: D, context: C) => void;
   catchCallback?: (error: ApolloError, context: C) => void;
@@ -30,13 +29,13 @@ export interface Options<T> {
   connectToDevTools?: boolean;
   queryDeduplication?: boolean;
   context?: T;
-  loadingComponent?: () => JSX.Element;
+  loadingComponent?: (props?: any) => JSX.Element;
 }
 
 export class ApolloClient<C> extends ApolloClientBase {
   spyLink: SpyLink;
   context: C;
-  loadingComponent?: () => JSX.Element;
+  loadingComponent?: (props?: any) => JSX.Element;
 
   constructor(options: Options<C>) {
     super(options);
@@ -44,7 +43,7 @@ export class ApolloClient<C> extends ApolloClientBase {
     this.loadingComponent = options.loadingComponent;
   }
 
-  mutate<V, D>(
+  mutate<D, V = {}>(
     options: IMutation<C, V, D>
   ): Promise<{
     data: D;
@@ -52,13 +51,11 @@ export class ApolloClient<C> extends ApolloClientBase {
     networkStatus: NetworkStatus;
     stale: boolean;
   }> {
-    options.mutation = options.mutation || options.query;
     const {
       catchCallback,
       finalCallback,
       mutation,
       optimisticResponse,
-      query,
       thenCallback,
       updateQueries,
       variables,

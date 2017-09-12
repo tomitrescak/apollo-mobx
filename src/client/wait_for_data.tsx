@@ -16,6 +16,9 @@ export function waitForData<TProps, TChildProps = {}>(
   return function(WrappedComponent) {
     const func = (props: any, context: any) => {
       const loading = options.loadingComponent || props.client.loadingComponent;
+      if (!loading) {
+        throw new Error('Apollo-Mobx: Loading component for "waitForData" is not defined.');
+      }
 
       // wait for individual queries
       for (let key of keys) {

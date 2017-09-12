@@ -5,7 +5,6 @@ import { inject, observer } from 'mobx-react';
 
 import { Cache } from 'apollo-cache-core';
 import ApolloClientBase, { ObservableQuery } from 'apollo-client';
-import { Subscription } from 'apollo-client/lib/src/util/Observable';
 import { ApolloLink } from 'apollo-link-core';
 // import { DocumentNode } from 'graphql';
 import { ApolloClient } from './client';

@@ -1,5 +1,5 @@
 import { ObservableQuery } from 'apollo-client';
-import { Subscription } from 'apollo-client/lib/src/util/Observable';
+import { Subscription } from 'apollo-client/util/Observable';
 import { DocumentNode } from 'graphql';
 import { action, observable } from 'mobx';
 import * as React from 'react';

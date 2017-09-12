@@ -1,6 +1,5 @@
 import { Cache } from 'apollo-cache-core';
-import ApolloClientBase, { ApolloError, MutationOptions, WatchQueryOptions } from 'apollo-client';
-import { NetworkStatus } from 'apollo-client/lib/src/core/networkStatus';
+import ApolloClientBase, { ApolloError, MutationOptions, NetworkStatus, WatchQueryOptions } from 'apollo-client';
 import { ApolloLink } from 'apollo-link-core';
 import { DocumentNode } from 'graphql';
 import * as React from 'react';

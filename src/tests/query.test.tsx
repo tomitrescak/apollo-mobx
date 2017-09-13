@@ -80,7 +80,7 @@ describe('Queries', function() {
     };
 
     const context = {};
-    const { ApolloDecorator, graphqlClient } = initialiseApolloDecorator({
+    const { ApolloDecorator, client } = initialiseApolloDecorator({
       context,
       queries,
       typeDefs
@@ -95,7 +95,7 @@ describe('Queries', function() {
     return {
       component,
       context,
-      graphqlClient
+      client
     };
   }
 
@@ -108,9 +108,9 @@ describe('Queries', function() {
       return 'Hello: ' + what;
     }
 
-    const { graphqlClient, context } = init(say);
+    const { client, context } = init(say);
 
-    const greetings = await graphqlClient.query({
+    const greetings = await client.query({
       finalCallback,
       thenCallback,
       query,
@@ -134,9 +134,9 @@ describe('Queries', function() {
       throw new Error('Failed');
     }
 
-    const { graphqlClient, context } = init(say);
+    const { client, context } = init(say);
 
-    await graphqlClient
+    await client
       .query({
         catchCallback,
         finalCallback,
@@ -151,7 +151,7 @@ describe('Queries', function() {
     function say(what: string) {
       return 'Hello: ' + what;
     }
-    const { graphqlClient, context, component } = init(say);
+    const { client, context, component } = init(say);
     const wrapper = await mountContainer(component);
 
     wrapper
@@ -171,7 +171,7 @@ describe('Queries', function() {
     function say(what: string) {
       return 'Hello: ' + what + ' ' + i++;
     }
-    const { graphqlClient, context, component } = init(say);
+    const { client, context, component } = init(say);
     const wrapper = mount(component);
 
     try {
@@ -183,7 +183,7 @@ describe('Queries', function() {
       /**/
     }
 
-    await waitForQueries(graphqlClient);
+    await waitForQueries(client);
 
     wrapper
       .find('#content')
@@ -193,7 +193,7 @@ describe('Queries', function() {
     // now change
 
     wrapper.find('button').simulate('click');
-    await waitForQueries(graphqlClient);
+    await waitForQueries(client);
 
     wrapper
       .find('#content')
@@ -201,8 +201,8 @@ describe('Queries', function() {
       .should.equal('Hello: Dean 1');
 
     // reset store and observe changes
-    graphqlClient.resetStore();
-    await waitForQueries(graphqlClient);
+    client.resetStore();
+    await waitForQueries(client);
     wrapper
       .find('#content')
       .text()

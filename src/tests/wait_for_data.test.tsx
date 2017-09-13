@@ -68,7 +68,7 @@ describe('Wait For Data', function() {
       typeDefs
     });
     ApolloDecorator = init.ApolloDecorator;
-    graphqlClient = init.graphqlClient;
+    graphqlClient = init.client;
   });
 
   it('can specify loading component on query', async function() {

@@ -1,18 +1,18 @@
-import { Cache } from 'apollo-cache-core';
+import { ApolloCache } from 'apollo-cache-core';
 import ApolloClientBase, { ApolloError, MutationOptions, NetworkStatus, WatchQueryOptions } from 'apollo-client';
 import { ApolloLink } from 'apollo-link-core';
 import { DocumentNode } from 'graphql';
 import * as React from 'react';
 import { SpyLink } from '../testing/spy_link';
 
-export interface IQuery<D, V, C> extends WatchQueryOptions {
+export interface IQuery<C = {}, D = {}, V = {}> extends WatchQueryOptions {
   variables?: V;
   thenCallback?: (data: D, context: C) => void;
   catchCallback?: (error: ApolloError, context: C) => void;
   finalCallback?: (context: C) => void;
 }
 
-export interface IMutation<C, V, D, T = {}> extends MutationOptions<T> {
+export interface IMutation<C = {}, D = {}, V = {},  T = {}> extends MutationOptions<T> {
   variables?: V;
   thenCallback?: (data: D, context: C) => void;
   catchCallback?: (error: ApolloError, context: C) => void;
@@ -21,7 +21,7 @@ export interface IMutation<C, V, D, T = {}> extends MutationOptions<T> {
 
 export interface Options<T> {
   link: ApolloLink;
-  cache: Cache;
+  cache: ApolloCache;
   ssrMode?: boolean;
   ssrForceFetchDelay?: number;
   addTypename?: boolean;
@@ -106,7 +106,7 @@ export class ApolloClient<C> extends ApolloClientBase {
   }
 
   query<D, V = {}>(
-    options: IQuery<D, V, C>
+    options: IQuery<C, D, V>
   ): Promise<{
     data: D;
     loading: boolean;

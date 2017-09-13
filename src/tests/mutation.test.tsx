@@ -69,7 +69,7 @@ describe('Mutations', function() {
       }
     };
 
-    const { ApolloDecorator, graphqlClient } = initialiseApolloDecorator({
+    const { ApolloDecorator, client } = initialiseApolloDecorator({
       context,
       mutations,
       typeDefs
@@ -82,9 +82,9 @@ describe('Mutations', function() {
     );
 
     return {
+      client,
       component,
       context,
-      graphqlClient
     };
   }
 
@@ -97,9 +97,9 @@ describe('Mutations', function() {
     const finalCallback = sinon.stub();
     const catchCallback = sinon.stub();
 
-    const { graphqlClient, context } = init(mutation);
+    const { client, context } = init(mutation);
 
-    const greetings = await graphqlClient.mutate({
+    const greetings = await client.mutate({
       mutation: mutationText,
       variables: {
         what: 'Returned'
@@ -124,11 +124,11 @@ describe('Mutations', function() {
     const finalCallback = sinon.stub();
     const catchCallback = sinon.stub();
 
-    const { graphqlClient, context } = init(mutation);
+    const { client, context } = init(mutation);
 
-    graphqlClient.resetStore();
+    client.resetStore();
 
-    const result = await graphqlClient
+    const result = await client
       .mutate({
         mutation: mutationText,
         variables: {
@@ -148,19 +148,19 @@ describe('Mutations', function() {
       return what;
     }
 
-    const { graphqlClient, context, component } = init(mutation);
+    const { client, context, component } = init(mutation);
 
     const wrapper = mount(component);
 
     // utter mutation
-    const result = await graphqlClient.mutate({
+    const result = await client.mutate({
       mutation: mutationText,
       variables: {
         what: 'New Text'
       }
     });
 
-    await waitForQueries(graphqlClient);
+    await waitForQueries(client);
 
     wrapper
       .find('#detail')

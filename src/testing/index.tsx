@@ -55,7 +55,7 @@ export function initialiseApolloMocks<T>({
   const apolloCache = new InMemoryCache(global.__APOLLO_STATE_);
 
   const graphqlClient: ApolloClient<typeof context> = new ApolloClient({
-    cache: apolloCache,
+    cache: apolloCache as any,
     context,
     link: ApolloLink.from([
       new SpyLink(() => graphqlClient),
@@ -75,18 +75,18 @@ export function initialiseApolloDecorator<T>({
   context,
   loadingComponent
 }: ApolloProps<T>) {
-  const graphqlClient = initialiseApolloMocks({ queries, mutations, resolvers, context, typeDefs, loadingComponent });
+  const client = initialiseApolloMocks({ queries, mutations, resolvers, context, typeDefs, loadingComponent });
 
   return {
     ApolloDecorator: ({ children }: any) => {
       return (
-        <MobxProvider context={context} client={graphqlClient}>
+        <MobxProvider context={context} client={client}>
           <div>{children}</div>
         </MobxProvider>
       );
     },
+    client,
     context,
-    graphqlClient,
   };
 }
 

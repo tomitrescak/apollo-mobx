@@ -6,12 +6,10 @@ import ApolloClient, {
   FetchPolicy,
   ObservableQuery,
   SubscribeToMoreOptions,
-  UpdateQueryOptions,
+  UpdateQueryOptions
 } from 'apollo-client';
 import { action, computed, IObservableArray, observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
-
-import { Subscription } from 'apollo-client/lib/src/util/Observable';
 
 export interface QueryProps {
   error?: ApolloError;

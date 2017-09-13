@@ -43,8 +43,8 @@
     "@types/react" "*"
 
 "@types/graphql@^0.11.1":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.11.2.tgz#758c278a042b13943fc7d5a35261e3fbd3c34195"
+  version "0.11.3"
+  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.11.3.tgz#1b93a60b2974c244588eaf72471058379532f4d9"
 
 "@types/graphql@^0.9.0":
   version "0.9.4"
@@ -80,8 +80,8 @@
     "@types/sinon" "*"
 
 "@types/sinon@*", "@types/sinon@^2.3.3":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-2.3.3.tgz#1f20b96f954b4997a09c1c0a20264aaba6b00147"
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-2.3.4.tgz#2b3aa82dfc791eeff1d970b657a77eafff2899ff"
 
 abab@^1.0.3:
   version "1.0.3"
@@ -138,25 +138,25 @@ ansi-styles@^3.1.0:
   dependencies:
     color-convert "^1.9.0"
 
-apollo-cache-core@^0.2.0-alpha.7:
-  version "0.2.0-alpha.9"
-  resolved "https://registry.yarnpkg.com/apollo-cache-core/-/apollo-cache-core-0.2.0-alpha.9.tgz#f33c265f3c03fdef12d8afd486163f23840a767d"
+apollo-cache-core@^0.2.0-alpha.9:
+  version "0.2.0-alpha.11"
+  resolved "https://registry.yarnpkg.com/apollo-cache-core/-/apollo-cache-core-0.2.0-alpha.11.tgz#22b5d07ef87017bc68519de7eb92fbf227c25e05"
   dependencies:
     apollo-utilities "^0.2.0-alpha.6"
 
-apollo-cache-inmemory@0.2.0-alpha.7:
-  version "0.2.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/apollo-cache-inmemory/-/apollo-cache-inmemory-0.2.0-alpha.7.tgz#818f4750c614e6b5707e603c5e8e92b5345f1139"
+apollo-cache-inmemory@0.2.0-alpha.9:
+  version "0.2.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/apollo-cache-inmemory/-/apollo-cache-inmemory-0.2.0-alpha.9.tgz#e937f2bc904084f4b06e3d04fe5bd4a7fb1ac40e"
   dependencies:
-    apollo-cache-core "^0.2.0-alpha.7"
+    apollo-cache-core "^0.2.0-alpha.9"
     apollo-utilities "^0.2.0-alpha.6"
     graphql-anywhere "^4.0.0-alpha.6"
 
-apollo-client@2.0.0-alpha.8:
-  version "2.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.0.0-alpha.8.tgz#7db68b28e9f912c6b1b1127a4d076114fd6ab239"
+apollo-client@2.0.0-alpha.24:
+  version "2.0.0-alpha.24"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.0.0-alpha.24.tgz#5bec4c4628ed67b9a88ada0eac1941d74652d0d3"
   dependencies:
-    apollo-cache-core "^0.2.0-alpha.7"
+    apollo-cache-core "^0.2.0-alpha.9"
     apollo-link-core "^0.5.4"
     apollo-link-dedup "^0.3.4"
     apollo-utilities "^0.2.0-alpha.6"
@@ -435,9 +435,9 @@ chai-enzyme@^0.8.0:
     html "^1.0.0"
     react-element-to-jsx-string "^5.0.0"
 
-chai-match-snapshot@^1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/chai-match-snapshot/-/chai-match-snapshot-1.0.13.tgz#deb98e6159c8e577498ca78a979c7dbdedf70c09"
+chai-match-snapshot@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/chai-match-snapshot/-/chai-match-snapshot-1.0.15.tgz#8cd6f81029a69794494eea96aab008868843a865"
   dependencies:
     "@types/node" "^8.0.17"
 
@@ -1891,8 +1891,8 @@ mobx@^3.2.2:
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.2.2.tgz#aa671459bededfd9880c948889a3f62bce09279c"
 
 mocha@^3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.5.2.tgz#3d5585cc6bd9e43a7c0bd251631abc0fbea0f032"
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.5.3.tgz#1e0480fe36d2da5858d1eb6acc38418b26eaa20d"
   dependencies:
     browser-stdout "1.3.0"
     commander "2.9.0"
@@ -2243,6 +2243,10 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
+punycode@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
+
 qs@~6.3.0:
   version "6.3.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.2.tgz#e75bd5f6e268122a2a0e0bda630b2550c166502c"
@@ -2453,8 +2457,8 @@ right-align@^0.1.1:
     align-text "^0.1.1"
 
 rimraf@^2.3.3, rimraf@^2.5.4, rimraf@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
     glob "^7.0.5"
 
@@ -2713,9 +2717,11 @@ tough-cookie@>=2.3.0, tough-cookie@^2.3.2, tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
-tr46@~0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
+tr46@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tr46/-/tr46-1.0.1.tgz#a8b13fd6bfd2489519674ccde55ba3693b706d09"
+  dependencies:
+    punycode "^2.1.0"
 
 traverse@^0.6.6:
   version "0.6.6"
@@ -2865,8 +2871,8 @@ verror@1.10.0:
     extsprintf "^1.2.0"
 
 wafl@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/wafl/-/wafl-0.2.6.tgz#6440f3b8eacbea14e1f63e5e23cd9802ae485b21"
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/wafl/-/wafl-0.2.13.tgz#f38bfbe353f0b93052a0d27a56bad5ffb5865da3"
   dependencies:
     "@types/chai" "^4.0.3"
     "@types/chai-as-promised" "^0.0.31"
@@ -2877,7 +2883,7 @@ wafl@^0.2.6:
     chai "^4.1.1"
     chai-as-promised "^7.1.1"
     chai-enzyme "^0.8.0"
-    chai-match-snapshot "^1.0.13"
+    chai-match-snapshot "^1.0.15"
     chai-subset "^1.5.0"
     enzyme "^2.9.1"
     enzyme-to-json "^1.5.1"
@@ -2906,11 +2912,11 @@ whatwg-fetch@>=0.10.0:
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
 
 whatwg-url@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-6.1.0.tgz#5fc8279b93d75483b9ced8b26239854847a18578"
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-6.2.1.tgz#db8fb96d7f02661af266e3cefc18425923900a00"
   dependencies:
     lodash.sortby "^4.7.0"
-    tr46 "~0.0.3"
+    tr46 "^1.0.0"
     webidl-conversions "^4.0.1"
 
 which-module@^2.0.0:

@@ -35,14 +35,6 @@ describe('Mutations', function() {
   }
 `;
 
-  let mutation: (what: string) => string;
-
-  const mutations = {
-    changeDetail: (query: any, variables: any) => {
-      return mutation(variables.what);
-    }
-  };
-
   const HelloWorld = observer(({ data }: any) => {
     const hello = data && data.helloWorld;
     if (data && data.loading) {
@@ -61,29 +53,56 @@ describe('Mutations', function() {
     }
   `;
 
-  const context = {};
-  const { ApolloDecorator, graphqlClient } = initialiseApolloDecorator({
-    context,
-    mutations,
-    typeDefs,
-  });
+  // beforeEach(function() {
+  //   mutation = (what: string) => {
+  //     state.detail = what;
+  //     return 'Returned';
+  //   };
+  // });
 
-  beforeEach(function() {
-    mutation = (what: string) => {
-      state.detail = what;
-      return 'Returned';
+  function init(mutation: (what: string) => string) {
+    const context = {};
+
+    const mutations = {
+      changeDetail: (query: any, variables: any) => {
+        return mutation(variables.what);
+      }
     };
-  });
+
+    const { ApolloDecorator, graphqlClient } = initialiseApolloDecorator({
+      context,
+      mutations,
+      typeDefs
+    });
+
+    const component = (
+      <ApolloDecorator>
+        <HelloWorld />
+      </ApolloDecorator>
+    );
+
+    return {
+      component,
+      context,
+      graphqlClient
+    };
+  }
 
   it('can call mutation with callbacks', async function() {
+    function mutation(what: string) {
+      return what;
+    }
+
     const thenCallback = sinon.stub();
     const finalCallback = sinon.stub();
     const catchCallback = sinon.stub();
 
+    const { graphqlClient, context } = init(mutation);
+
     const greetings = await graphqlClient.mutate({
       mutation: mutationText,
       variables: {
-        what: 'Resolved'
+        what: 'Returned'
       },
       thenCallback,
       finalCallback,
@@ -94,14 +113,22 @@ describe('Mutations', function() {
     thenCallback.should.have.been.calledWith({ changeDetail: 'Returned' }, context);
     finalCallback.should.have.been.calledWith(context);
     catchCallback.should.not.have.been.called;
+  });
 
-    // check errors
-    graphqlClient.resetStore();
-    mutation = () => {
+  xit('throws errors', async function() {
+    function mutation(what: string): string {
       throw new Error('Failed');
-    };
+    }
 
-    await graphqlClient
+    const thenCallback = sinon.stub();
+    const finalCallback = sinon.stub();
+    const catchCallback = sinon.stub();
+
+    const { graphqlClient, context } = init(mutation);
+
+    graphqlClient.resetStore();
+
+    const result = await graphqlClient
       .mutate({
         mutation: mutationText,
         variables: {
@@ -110,22 +137,23 @@ describe('Mutations', function() {
         thenCallback,
         finalCallback,
         catchCallback
-      })
-      .should.be.rejectedWith('GraphQL error: Failed');
+      }).should.be.rejectedWith('GraphQL error: Failed');
 
     catchCallback.should.have.been.called;
   });
 
   it('will wait for mutations and re-render accordingly', async function() {
-    const component = (
-      <ApolloDecorator>
-        <HelloWorld />
-      </ApolloDecorator>
-    );
+    function mutation(what: string): string {
+      state.detail = what;
+      return what;
+    }
+
+    const { graphqlClient, context, component } = init(mutation);
+
     const wrapper = mount(component);
 
     // utter mutation
-    graphqlClient.mutate({
+    const result = await graphqlClient.mutate({
       mutation: mutationText,
       variables: {
         what: 'New Text'
@@ -133,6 +161,7 @@ describe('Mutations', function() {
     });
 
     await waitForQueries(graphqlClient);
+
     wrapper
       .find('#detail')
       .text()

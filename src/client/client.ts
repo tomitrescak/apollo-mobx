@@ -43,7 +43,7 @@ export class ApolloClient<C> extends ApolloClientBase {
   }
 
   mutate<D, V = {}>(
-    options: IMutation<C, V, D>
+    options: IMutation<C, D, V>
   ): Promise<{
     data: D;
     loading: boolean;

@@ -22,7 +22,7 @@ export function graphql<TResult = {}, TProps = {}, TChildProps = ChildProps<TPro
   return function(Wrapper) {
     @inject('client')
     @observer
-    class Wrapped extends React.PureComponent<WProps, {}> {
+    class ApolloWrappedContainer extends React.Component<WProps, {}> {
       observe: Observer<any>;
 
       readOptions(options: QueryOpts | ((props: WProps) => QueryOpts), props: WProps): QueryOpts {
@@ -75,6 +75,6 @@ export function graphql<TResult = {}, TProps = {}, TChildProps = ChildProps<TPro
       }
     }
 
-    return Wrapped as any;
+    return ApolloWrappedContainer as any;
   };
 }

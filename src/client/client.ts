@@ -1,27 +1,31 @@
-import { ApolloCache } from 'apollo-cache-core';
+import { ApolloCache } from 'apollo-cache';
 import ApolloClientBase, { ApolloError, MutationOptions, NetworkStatus, WatchQueryOptions } from 'apollo-client';
-import { ApolloLink } from 'apollo-link-core';
+import { ApolloLink } from 'apollo-link';
 import { DocumentNode } from 'graphql';
 import * as React from 'react';
 import { SpyLink } from '../testing/spy_link';
 
-export interface IQuery<C = {}, D = {}, V = {}> extends WatchQueryOptions {
+export interface IQuery<C = {}, D = {}, V = {}> {
+  query: any;
   variables?: V;
-  thenCallback?: (data: D, context: C) => void;
-  catchCallback?: (error: ApolloError, context: C) => void;
-  finalCallback?: (context: C) => void;
+  thenCallback?: (data?: D, context?: C) => void;
+  catchCallback?: (error?: ApolloError, context?: C) => void;
+  finalCallback?: (context?: C) => void;
 }
 
-export interface IMutation<C = {}, D = {}, V = {},  T = {}> extends MutationOptions<T> {
+export interface IMutation<C = {}, D = {}, V = {},  T = {}> {
+  mutation: any;
   variables?: V;
-  thenCallback?: (data: D, context: C) => void;
-  catchCallback?: (error: ApolloError, context: C) => void;
-  finalCallback?: (context: C) => void;
+  optimisticResponse?: any;
+  updateQueries?: any;
+  thenCallback?: (data?: D, context?: C) => void;
+  catchCallback?: (error?: ApolloError, context?: C) => void;
+  finalCallback?: (context?: C) => void;
 }
 
 export interface Options<T> {
   link: ApolloLink;
-  cache: ApolloCache;
+  cache: ApolloCache<any>;
   ssrMode?: boolean;
   ssrForceFetchDelay?: number;
   addTypename?: boolean;
@@ -31,7 +35,7 @@ export interface Options<T> {
   loadingComponent?: (props?: any) => JSX.Element;
 }
 
-export class ApolloClient<C> extends ApolloClientBase {
+export class ApolloClient<C> extends ApolloClientBase<any> {
   spyLink: SpyLink;
   context: C;
   loadingComponent?: (props?: any) => JSX.Element;
@@ -64,7 +68,7 @@ export class ApolloClient<C> extends ApolloClientBase {
 
       if (!thenCallback && !catchCallback && !finalCallback) {
         super.mutate(options).then((result) => {
-          resolve(result);
+          resolve(result as any);
         }).catch((error) => {
           reject(error);
         });
@@ -89,7 +93,7 @@ export class ApolloClient<C> extends ApolloClientBase {
             finalCallback(this.context);
           }
 
-          resolve(graphQLResult);
+          resolve(graphQLResult as any);
         })
         .catch((error: ApolloError) => {
           // context.Utils.log.error(error);

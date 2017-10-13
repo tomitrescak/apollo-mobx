@@ -35,7 +35,7 @@ export interface QueryOpts {
   variables?: { [key: string]: any };
   fetchPolicy?: FetchPolicy;
   pollInterval?: number;
-  client?: ApolloClient;
+  client?: ApolloClient<any>;
   notifyOnNetworkStatusChange?: boolean;
   // deprecated
   skip?: boolean;

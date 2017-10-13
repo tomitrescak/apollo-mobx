@@ -1,6 +1,6 @@
 import InMemoryCache from 'apollo-cache-inmemory';
 import ApolloClientBase from 'apollo-client';
-import { ApolloLink } from 'apollo-link-core/lib';
+import { ApolloLink } from 'apollo-link';
 import { mount, ReactWrapper } from 'enzyme';
 import { GraphQLScalarType } from 'graphql';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
@@ -54,15 +54,18 @@ export function initialiseApolloMocks<T>({
 
   const apolloCache = new InMemoryCache(global.__APOLLO_STATE_);
 
+  const spyLink = new SpyLink();
   const graphqlClient: ApolloClient<typeof context> = new ApolloClient({
     cache: apolloCache as any,
     context,
     link: ApolloLink.from([
-      new SpyLink(() => graphqlClient),
+      spyLink,
       new MockLink({ schema }),
     ]),
     loadingComponent
   });
+  graphqlClient.spyLink = spyLink;
+
   return graphqlClient;
 }
 
@@ -99,7 +102,7 @@ export async function mountContainer(component: JSX.Element) {
   return wrapper;
 }
 
-export async function waitForQueries(client: ApolloClientBase): Promise<any> {
+export async function waitForQueries(client: ApolloClientBase<any>): Promise<any> {
   const spyLink: SpyLink = (client as ApolloClient<any>).spyLink;
   if (!spyLink) {
     throw new Error('You need to add SpyLink to your links!');

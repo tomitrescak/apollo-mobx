@@ -3,9 +3,8 @@ import * as React from 'react';
 import { action, computed, IObservableArray, observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import { Cache } from 'apollo-cache-core';
 import ApolloClientBase, { ObservableQuery } from 'apollo-client';
-import { ApolloLink } from 'apollo-link-core';
+import { ApolloLink } from 'apollo-link';
 // import { DocumentNode } from 'graphql';
 import { ApolloClient } from './client';
 import { ChildProps, ComponentDecorator, OperationOption, QueryOpts } from './interface';
@@ -13,19 +12,21 @@ import { Observer } from './observer';
 
 const uid = 0;
 
-interface WProps { client: ApolloClient<any>; }
+interface WProps {
+  client: ApolloClient<any>;
+}
 
-export function graphql<TResult = {}, TProps = {}, TChildProps = ChildProps<TProps, TResult>>(
+export function graphql<DataResult = {}, QueryProps = {}, TChildProps = ChildProps<QueryProps, DataResult>>(
   query: any,
-  { options, props = null, name = 'data', waitForData, loadingComponent }: OperationOption<TProps, TResult> = {}
-): ComponentDecorator<TProps, TChildProps> {
+  { options, props = null, name = 'data', waitForData, loadingComponent }: OperationOption<QueryProps, DataResult> = {}
+): ComponentDecorator<QueryProps, TChildProps> {
   return function(Wrapper) {
     @inject('client')
     @observer
     class ApolloWrappedContainer extends React.Component<WProps, {}> {
       observe: Observer<any>;
 
-      readOptions(options: QueryOpts | ((props: WProps) => QueryOpts), props: WProps): QueryOpts {
+      readOptions(options: QueryOpts | ((props: QueryOpts) => QueryOpts), props: WProps): QueryOpts {
         if (typeof options === 'function') {
           return options(props);
         } else {

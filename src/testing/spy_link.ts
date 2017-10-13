@@ -4,7 +4,7 @@ import {
   NextLink,
   Observable,
   Operation,
-} from 'apollo-link-core';
+} from 'apollo-link';
 
 import ApolloClient from 'apollo-client';
 import { print } from 'graphql/language/printer';
@@ -13,16 +13,13 @@ import { print } from 'graphql/language/printer';
  * Expects context to contain the forceFetch field if no dedup
  */
 export class SpyLink extends ApolloLink {
-  private client: () => ApolloClient;
-
   private inFlightRequestObservables: {
     [key: string]: Observable<FetchResult>;
   };
 
-  constructor(client: () => ApolloClient) {
+  constructor() {
     super();
     this.inFlightRequestObservables = {};
-    this.client = client;
   }
 
   public async wait() {
@@ -42,11 +39,6 @@ export class SpyLink extends ApolloLink {
     operation: Operation,
     forward: NextLink,
   ): Observable<FetchResult> {
-    // we need to add it like this, brutally as we have no access on individual links on client
-    if (!(this.client() as any).spyLink) {
-      (this.client() as any).spyLink = this;
-    }
-
     const key = this.getKey(operation);
     if (!this.inFlightRequestObservables[key]) {
       this.inFlightRequestObservables[key] = forward(operation);

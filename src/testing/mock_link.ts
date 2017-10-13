@@ -1,4 +1,4 @@
-import { ApolloLink, FetchResult, Observable, Operation } from 'apollo-link-core';
+import { ApolloLink, FetchResult, Observable, Operation } from 'apollo-link';
 
 import { graphql, GraphQLSchema } from 'graphql';
 import { print } from 'graphql/language/printer';

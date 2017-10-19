@@ -1,9 +1,10 @@
-import InMemoryCache from 'apollo-cache-inmemory';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClientBase from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { mount, ReactWrapper } from 'enzyme';
 import { GraphQLScalarType } from 'graphql';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
+// tslint:disable-next-line:no-submodule-imports
 import { Kind } from 'graphql/language';
 import { autorun } from 'mobx';
 import { Provider as MobxProvider } from 'mobx-react';

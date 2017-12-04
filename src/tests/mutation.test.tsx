@@ -1,9 +1,11 @@
+import * as React from 'react';
+import * as sinon from 'sinon';
+
 import date from 'apollo-module-date';
 import { mount, shallow } from 'enzyme';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import * as React from 'react';
-import * as sinon from 'sinon';
+
 import { compose, connectProps, gql, graphql } from '../index';
 import {
   configure,
@@ -100,13 +102,13 @@ describe('Mutations', function() {
     const { client, context } = init(mutation);
 
     const greetings = await client.mutate({
+      catchCallback,
+      finalCallback,
       mutation: mutationText,
+      thenCallback,
       variables: {
         what: 'Returned'
       },
-      thenCallback,
-      finalCallback,
-      catchCallback
     });
 
     greetings.data.should.deep.equal({ changeDetail: 'Returned' });
@@ -130,13 +132,13 @@ describe('Mutations', function() {
 
     const result = await client
       .mutate({
+        catchCallback,
+        finalCallback,
         mutation: mutationText,
+        thenCallback,
         variables: {
           what: 'Resolved'
         },
-        thenCallback,
-        finalCallback,
-        catchCallback
       }).should.be.rejectedWith('GraphQL error: Failed');
 
     catchCallback.should.have.been.called;

@@ -1,6 +1,7 @@
 import { ApolloLink, FetchResult, Observable, Operation } from 'apollo-link';
 
 import { graphql, GraphQLSchema } from 'graphql';
+// tslint:disable-next-line:no-submodule-imports
 import { print } from 'graphql/language/printer';
 
 export default class MockLink extends ApolloLink {
@@ -21,7 +22,7 @@ export default class MockLink extends ApolloLink {
       query: print(operation.query)
     };
 
-    return new Observable<FetchResult>((observer) => {
+    return new Observable<FetchResult>((observer: any) => {
       graphql(this.schema, request.query, this.rootValue, this.context, request.variables, request.operationName)
         .then((data) => {
           if (!observer.closed) {

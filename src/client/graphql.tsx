@@ -26,11 +26,11 @@ export function graphql<DataResult = {}, QueryProps = {}, TChildProps = ChildPro
     class ApolloWrappedContainer extends React.Component<WProps, {}> {
       observe: Observer<any>;
 
-      readOptions(options: QueryOpts | ((props: QueryOpts) => QueryOpts), props: WProps): QueryOpts {
-        if (typeof options === 'function') {
-          return options(props);
+      readOptions(readOptions: QueryOpts | ((props: QueryOpts) => QueryOpts), readProps: WProps): QueryOpts {
+        if (typeof readOptions === 'function') {
+          return readOptions(readProps);
         } else {
-          return options;
+          return readOptions;
         }
       }
 
@@ -62,7 +62,7 @@ export function graphql<DataResult = {}, QueryProps = {}, TChildProps = ChildPro
 
       componentWillUpdate(nextProps: WProps) {
         const client = nextProps.client;
-        const opts = this.readOptions(options, nextProps) || {};
+        const opts = this.readOptions(options as any, nextProps) || {};
         this.observe.start(client, query, opts);
       }
 
@@ -71,7 +71,7 @@ export function graphql<DataResult = {}, QueryProps = {}, TChildProps = ChildPro
 
         this.observe = new Observer();
 
-        const opts = this.readOptions(options, this.props) || {};
+        const opts = this.readOptions(options as any, this.props) || {};
         this.observe.start(client, query, opts);
       }
     }

@@ -1,4 +1,5 @@
 import { ObservableQuery } from 'apollo-client';
+// tslint:disable-next-line:no-submodule-imports
 import { Subscription } from 'apollo-client/util/Observable';
 import { DocumentNode } from 'graphql';
 import { action, observable } from 'mobx';
@@ -45,11 +46,11 @@ export class Observer<T> {
       });
 
       this.subscription = this.query.subscribe({
-        next(result) {
+        next(result: any) {
           // setTimeout(() => applyChanges(result), 1);
           applyChanges(result);
         },
-        error(err) {
+        error(err: any) {
           // tslint:disable-next-line:no-console
           console.error('err', err);
         }
